@@ -1,0 +1,171 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="1" author="Igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="Tabela Existente">
+            <not>
+                <tableExists tableName="cliente"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="cliente">
+
+            <column name="idcliente" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CLIENTE"/>
+            </column>
+
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="senha" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="nome" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+
+        </createTable>
+
+        <addAutoIncrement tableName="cliente" columnName="idcliente" startWith="1" columnDataType="INT" incrementBy="1"/>
+
+    </changeSet>
+
+    <changeSet id="2" author="Igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="Tabela Existente">
+            <not>
+                <tableExists tableName="sessao"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="sessao">
+
+            <column name="idsessao" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SESSAO"/>
+            </column>
+
+            <column name="disponivel" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="horario" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addAutoIncrement tableName="sessao" columnName="idsessao" startWith="1" columnDataType="INT" incrementBy="1"/>
+
+    </changeSet>
+
+
+    <changeSet id="3" author="Igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="Tabela Existente">
+            <not>
+                <tableExists tableName="ingresso"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="ingresso">
+
+            <column name="idingresso" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INGRESSO"/>
+            </column>
+
+            <column name="quantidade" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="valor" type="float">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="cliente_id" type="integer">
+                <constraints nullable="false" foreignKeyName="FK_cliente_ingresso"
+                             referencedTableName="cliente"
+                             referencedColumnNames="idcliente"/>
+            </column>
+
+            <column name="sessao_id" type="integer">
+                <constraints nullable="false" foreignKeyName="FK_sessao_ingresso"
+                             referencedTableName="sessao"
+                             referencedColumnNames="idsessao"/>
+            </column>
+
+
+        </createTable>
+
+        <addAutoIncrement tableName="ingresso" columnName="idingresso" startWith="1" columnDataType="INT" incrementBy="1"/>
+
+    </changeSet>
+
+
+    <changeSet id="4" author="Igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="Tabela Existente">
+            <not>
+                <tableExists tableName="sala"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="sala">
+
+            <column name="idsala" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_SALA"/>
+            </column>
+
+            <column name="nome" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="capacidadesala" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addAutoIncrement tableName="sala" columnName="idsala" startWith="1" columnDataType="INT" incrementBy="1"/>
+
+    </changeSet>
+
+
+
+    <changeSet id="5" author="Igor">
+        <preConditions onFail="MARK_RAN" onFailMessage="Tabela Existente">
+            <not>
+                <tableExists tableName="filme"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="filme">
+
+            <column name="idfilme" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FILME"/>
+            </column>
+
+            <column name="nomefilme" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="classificacao" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="genero" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+
+        </createTable>
+
+        <addAutoIncrement tableName="filme" columnName="idfilme" startWith="1" columnDataType="INT" incrementBy="1"/>
+
+    </changeSet>
+
+
+
+
+</databaseChangeLog>
